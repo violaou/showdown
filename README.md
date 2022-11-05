@@ -1,35 +1,21 @@
 # Showdown  ![umbreon](https://play.pokemonshowdown.com/sprites/xyani/umbreon.gif)
 A Pokémon battle-bot that can play battles on [Pokemon Showdown](https://pokemonshowdown.com/).
 
-The bot can play single battles in generations 3 through 8 however some of the battle mechanics assume it is gen8.
+The bot can play single battles in generations 3 through 8. However some of the battle mechanics assume it is gen8.
 
 ![badge](https://github.com/pmariglia/showdown/actions/workflows/pythonapp.yml/badge.svg)
 
-## Python version
-Developed and tested using Python 3.8.
+## Requirements 
+- Python version: Developed and tested using Python 3.8.
 
-## Getting Started
+# Getting Started
 
-### Configuration
-Environment variables are used for configuration which are by default read from a file named `.env`
+### 🤔 A Note About Configurations:
+Environment variables are used for configuration, by default they are read from a `.env` file.
 
-The configurations available are:
-```
-BATTLE_BOT: (string, default "safest") The BattleBot module to use. More on this below
-SAVE_REPLAY: (bool, default False) Specifies whether or not to save replays of the battles
-LOG_LEVEL: (string, default "DEBUG") The Python logging level 
-WEBSOCKET_URI: (string, default is the official PokemonShowdown websocket address: "sim.smogon.com:8000") The address to use to connect to the Pokemon Showdown websocket 
-PS_USERNAME: (string, required) Pokemon Showdown username
-PS_PASSWORD: (string) Pokemon Showdown password 
-BOT_MODE: (string, required) The mode the the bot will operate in. Options are "CHALLENGE_USER", "SEARCH_LADDER", or "ACCEPT_CHALLENGE"
-USER_TO_CHALLENGE: (string, required if BOT_MODE is "CHALLENGE_USER") The user to challenge
-POKEMON_MODE: (string, required) The type of game this bot will play games in
-TEAM_NAME: (string, required if POKEMON_MODE is one where a team is required) The name of the file that contains the team you want to use. More on this below in the Specifying Teams section.
-RUN_COUNT: (integer, required) The amount of games this bot will play before quitting
-ROOM_NAME: (string, optional) Optionally join a room by this name if BOT_MODE is "ACCEPT_CHALLENGE"
-```
+There is a sample `.env` file provided in this repository.
 
-Here is a minimal `.env` file. This configuration will log in and search for a gen8randombattle:
+As an example, here is a minimal `.env` file. This configuration will log in and search for a `gen8randombattle`:
 ```
 WEBSOCKET_URI=sim.smogon.com:8000
 PS_USERNAME=MyCoolUsername
@@ -39,26 +25,44 @@ POKEMON_MODE=gen8randombattle
 RUN_COUNT=1
 ```
 
-There is a sample `.env` file in this repository.
 
-### Running without Docker
+### Available configurations:
+
+| Config Name | Type | Required | Default value | Description |
+|---|---|---|---|---|
+| **`BATTLE_BOT`** | string |  | `"safest"` | The BattleBot module to use. More on this below |
+| **`SAVE_REPLAY`** | boolean |  | `False` | Specifies whether or not to save replays of the battles |
+| **`LOG_LEVEL`** | string |  | `"DEBUG"` | Python logging level |
+| **`WEBSOCKET_URI`** | string | yes | `"sim.smogon.com:8000"` | The address to use to connect to the Pokemon Showdown websocket |
+| **`PS_USERNAME`** | string | yes |  | Pokemon Showdown username |
+| **`PS_PASSWORD`** | string |  |  | Pokemon Showdown password |
+| **`BOT_MODE`** | string | yes |  | The mode the the bot will operate in. Options are: `"CHALLENGE_USER"`, `"SEARCH_LADDER"`, or `"ACCEPT_CHALLENGE"` |
+| **`USER_TO_CHALLENGE`** | string | yes* |  | Required if `BOT_MODE` is `"CHALLENGE_USER"`. User to challenge |
+| **`TEAM_NAME`** | string | yes* |  | Required if the `POKEMON_MODE` is one where a team is required |
+| **`RUN_COUNT`** | integer | yes |  | The amount of games this bot will play before quitting |
+| **`ROOM_NAME`** | string |  |  | Optionally join a room by this name if BOT_MODE is "ACCEPT_CHALLENGE" |
+| **`POKEMON_MODE`** | string | yes |  | The type of game this bot will play games in. |
+
+## 🔨  Running without Docker
 
 **1. Clone**
 
-Clone the repository with `git clone https://github.com/pmariglia/showdown.git`
+Clone the repository with  `git clone https://github.com/pmariglia/showdown.git`
 
 **2. Install Requirements**
 
-Install the requirements with `pip install -r requirements.txt`.
-Be sure to use a virtual environment to isolate your packages.
+Be sure to use a python virtual environment to isolate your packages. In the root folder of the project, run `pip install -r requirements.txt`.
 
-**3. Run**
+**3. Run the Bot**
 
-Run with `python run.py` and the bot will start with configurations
-specified by environment variables read from the file named `.env`
+Specify the environment variables needed in `.env`, then run `python run.py` to deploy the bot.
 
-### Running with Docker
-This requires Docker 17.06 or higher.
+**4. Check your Pokemon Showdown account**
+
+You should see that the pokemon showdown account is playing.
+
+## 🐳  Running with Docker
+⚠️ This will require Docker 17.06 or higher
 
 **1. Clone the repository**
 
@@ -72,7 +76,11 @@ This requires Docker 17.06 or higher.
 
 `docker run --env-file .env showdown`
 
-## Battle Bots
+**4. Check your Pokemon Showdown account**
+
+You should see that the pokemon showdown account is playing.
+
+# Types of Battle Bots
 
 ### Safest
 use `BATTLE_BOT=safest` (default unless otherwise specified)
